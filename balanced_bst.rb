@@ -19,9 +19,9 @@ class Tree
 
     n = sorted_array.size
     mid = n / 2
-    root = Node.new(sored_array[mid])
+    root = Node.new(sorted_array[mid])
     root.left = build_tree(sorted_array[0...mid])
-    root.right = build_tree(sorted_array[(m + 1)..n])
+    root.right = build_tree(sorted_array[(mid + 1)..n])
 
     root
   end
