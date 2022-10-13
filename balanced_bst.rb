@@ -11,4 +11,18 @@ class Tree
   def initialize(array)
     @root = build_tree(array)
   end
+
+  def build_tree(array)
+    sorted_array = array.sort.uniq
+    
+    return if sorted_array.empty?
+
+    n = sorted_array.size
+    mid = n / 2
+    root = Node.new(sored_array[mid])
+    root.left = build_tree(sorted_array[0...mid])
+    root.right = build_tree(sorted_array[(m + 1)..n])
+
+    root
+  end
 end
