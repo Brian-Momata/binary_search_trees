@@ -7,7 +7,7 @@ class Node
 end
 
 class Tree
-
+  attr_accessor :root
   def initialize(array)
     @root = build_tree(array)
   end
@@ -24,5 +24,16 @@ class Tree
     root.right = build_tree(sorted_array[(mid + 1)..n])
 
     root
+  end
+
+  def insert(value, node = root)
+    new_node = Node.new(value)
+    return nil if value == node.data
+    
+    if value < node.data
+      node.left == nil ? node.left = new_node : insert(value, node.left)
+    else value > node.data
+      node.right == nil ? node.right = new_node : insert(value, node.right)
+    end
   end
 end
