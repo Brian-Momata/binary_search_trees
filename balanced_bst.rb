@@ -38,17 +38,36 @@ class Tree
   end
   
   def delete(value, node = root)
-
+    return node if node == nil
+    if value < node.data
+      node.left = delete(value, node.left)
+    elsif value > node.data
+      node.right = delete(value, node.right)
+    elsif value == node.data
+      if node.left == nil
+        new_root = node.right
+        node = nil
+        new_root
+      elsif node.right == nil
+        new_root = node.is_left
+        node = nil
+        new_root
+      else
+        new_root = smallest_node(node.right)
+        node.data = new_root.data
+        node.right =  delete(new_root.data, node.right)
+      end
+    end
+    node
   end
   
-  private
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
     pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
   end
-
-  def smallest_node(node = root)
+  private
+  def smallest_node(node)
     current = node
     while current.left != nil
       current = current.left
