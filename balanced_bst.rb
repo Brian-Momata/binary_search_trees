@@ -95,6 +95,13 @@ class Tree
     puts node.data
     inorder(node.right)
   end
+
+  def preorder(node = root)
+    return if node == nil
+    puts node.data
+    preorder(node.left)
+    preorder(node.right)
+  end
   
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
