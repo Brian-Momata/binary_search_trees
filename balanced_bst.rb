@@ -129,6 +129,17 @@ class Tree
     return left + 1 if left
     return right + 1 if right
   end
+
+  def balanced?(node = root)
+    return true if node == nil
+    left = height(node.left)
+    right = height(node.right)
+    if (left - right) <= 1 && balanced?(node.left) && balanced?(node.right)
+      return true
+    else
+      return false
+    end
+  end
   
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
