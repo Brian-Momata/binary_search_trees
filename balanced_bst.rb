@@ -71,6 +71,23 @@ class Tree
       node
     end
   end
+
+  def level_order
+    queue = Queue.new
+    queue << root
+    nodes_array = []
+    while !queue.empty?
+      current = queue.pop
+      nodes_array << current
+      queue << current.left if current.left
+      queue << current.right if current.right
+    end
+    if block_given?
+      nodes_array.map { |node| yield node }
+    else
+      nodes_array.map { |node| node.data }
+    end
+  end
   
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
