@@ -88,6 +88,13 @@ class Tree
       nodes_array.map { |node| node.data }
     end
   end
+
+  def inorder(node = root)
+    return if node == nil
+    inorder(node.left)
+    puts node.data
+    inorder(node.right)
+  end
   
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
