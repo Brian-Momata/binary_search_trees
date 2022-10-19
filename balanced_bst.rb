@@ -143,7 +143,7 @@ class Tree
     return true if node == nil
     left = height(node.left)
     right = height(node.right)
-    if (left - right) <= 1 && balanced?(node.left) && balanced?(node.right)
+    if (left - right).abs <= 1 && balanced?(node.left) && balanced?(node.right)
       return true
     else
       return false
