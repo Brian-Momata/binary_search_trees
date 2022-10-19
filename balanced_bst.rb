@@ -89,25 +89,34 @@ class Tree
     end
   end
 
-  def inorder(node = root)
+  def inorder(node = root, nodes_array = [])
     return if node == nil
-    inorder(node.left)
-    puts node.data
-    inorder(node.right)
+    inorder(node.left, nodes_array)
+    nodes_array << node
+    inorder(node.right, nodes_array)
+  
+    return nodes_array.map { |node| yield node } if block_given?
+    return nodes_array.map { |node| node.data }
   end
 
-  def preorder(node = root)
+  def preorder(node = root, nodes_array = [])
     return if node == nil
-    puts node.data
-    preorder(node.left)
-    preorder(node.right)
+    nodes_array << node
+    preorder(node.left, nodes_array)
+    preorder(node.right, nodes_array)
+
+    return nodes_array.map { |node| yield node } if block_given?
+    return nodes_array.map { |node| node.data }
   end
 
-  def postorder(node = root)
+  def postorder(node = root, nodes_array = [])
     return if node == nil
-    postorder(node.left)
-    postorder(node.right)
-    puts node.data
+    postorder(node.left, nodes_array)
+    postorder(node.right, nodes_array)
+    nodes_array << node
+
+    return nodes_array.map { |node| yield node } if block_given?
+    return nodes_array.map { |node| node.data }
   end
 
   def height(node = root)
